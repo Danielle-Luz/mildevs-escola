@@ -2,9 +2,11 @@ package br.com.mildevs.entity;
 
 import java.util.List;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +35,7 @@ public class Professor {
 	@Column(nullable = false)
 	private String disciplina;
 
-	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
 	private List<Turma> turmas;
 	
 	

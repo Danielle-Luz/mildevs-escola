@@ -1,8 +1,10 @@
 package br.com.mildevs.entity;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,8 +28,9 @@ public class Sala {
 	@Column(nullable = false)
 	private double altura;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "turma_fk", referencedColumnName = "cod_turma")
+	@Basic(optional = true)
 	private Turma turma;
 	
 	public Turma getTurma() {

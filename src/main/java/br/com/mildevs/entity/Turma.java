@@ -2,9 +2,11 @@ package br.com.mildevs.entity;
 
 import java.util.List;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,14 +23,17 @@ public class Turma {
 	@Column(name = "cod_turma")
 	private int codTurma;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cod_funcionario_fk", referencedColumnName = "cod_funcionario")
+	@Basic(optional = true)
 	private Professor professor;
 
-	@ManyToMany(mappedBy = "turmas", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "turmas", cascade = CascadeType.MERGE)
+	@Basic(optional = false)
 	private List<Aluno> alunos;
 	
-	@OneToOne(mappedBy = "turma", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Basic(optional = false)
 	private Sala sala;
 	
 	public Professor getProfessor() {

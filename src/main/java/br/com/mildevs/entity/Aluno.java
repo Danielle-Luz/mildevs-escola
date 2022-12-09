@@ -3,8 +3,11 @@ package br.com.mildevs.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +31,8 @@ public class Aluno {
 	@Column(name = "data_nascimento", nullable = false)
 	private LocalDate dataNascimento;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@Basic(optional = false)
 	@JoinTable(name = "turmas_alunos", 
 			joinColumns = @JoinColumn(name = "aluno_fk", referencedColumnName = "matricula"), 
 			inverseJoinColumns = @JoinColumn(name = "turma_fk", referencedColumnName = "cod_turma"))
